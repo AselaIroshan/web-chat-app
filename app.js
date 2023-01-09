@@ -19,6 +19,11 @@ app.post('/',(req,res)=>{
 
 });
 
+app.get("/fpage",function(req,res) {
+    res.sendFile(path.join(__dirname, "/firstpage.html"))
+
+})
+
 
 
 
