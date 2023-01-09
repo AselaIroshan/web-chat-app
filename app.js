@@ -3,6 +3,7 @@ const path = require('path');
 var bodyParser = require('body-parser');
 
 var app = express();
+app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false })); 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -19,9 +20,14 @@ app.post('/',(req,res)=>{
 
 });
 
-app.get("/fpage",function(req,res) {
-    res.sendFile(path.join(__dirname, "/firstpage.html"))
 
+
+app.get("/fpage",function(req,res) {
+    var ase = [{name:"asela"},{name:"iroshan"}]
+    var title = "frist"
+
+    res.render("page/fpage",{ase:ase,title:title
+    })
 })
 
 
