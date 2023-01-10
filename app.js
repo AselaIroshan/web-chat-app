@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 var PORT =3000  
+const chats = []
 
 
 app.get('/', function (req , res) {
@@ -15,20 +16,24 @@ app.get('/', function (req , res) {
 });
 
 app.post('/',(req,res)=>{
-    username= req.body.u
-    password= req.body.p
+    let username= req.body.u
+    let password= req.body.p
 
 });
 
 
 
 app.get("/fpage",function(req,res) {
-    var ase = [{name:"asela"},{name:"iroshan"}]
-    var title = "frist"
 
-    res.render("page/fpage",{ase:ase,title:title
-    })
-})
+    res.render("page/fpage",{chat:chats
+    });
+});
+
+app.post("/fpage",function(req,res){
+    let chat= req.body.chat
+    chats.push({name:chat})
+
+});
 
 
 

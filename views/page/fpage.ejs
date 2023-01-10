@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title></title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="/css/f_page.css">
+    </head>
+    
+    <body>
+        <div class="text_body">
+            <div class="chatbox">
+            <% chat.forEach(function(as) { %>
+                <h1><%= as.name %></h1>
+            <% }); %>
+            </div>
+                
+                <form action="/fpage" method="post">
+                        <input type="text" name="chat"><br><br>
+                        <button class="button-46" role="button">SEND</button>
+                </form>
+       
+        
+        <script src="" async defer></script>
+    </body>
+</html>

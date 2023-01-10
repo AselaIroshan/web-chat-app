@@ -4,9 +4,9 @@ body{
 
 form{
     bottom: 0;
-    position: fixed;
     left: 50%;
-    margin-bottom: 10%;
+    position: fixed;
+    display:inline-block;
 }
 
 input{
@@ -55,3 +55,12 @@ input{
       padding: 14px 16px;
     }
   }
+  
+.chatbox{
+  background-color: aquamarine;
+  position: relative;
+  bottom:10;
+  height: 400px;
+  left: 50%;
+  max-height:400px ;
+}
