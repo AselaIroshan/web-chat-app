@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 var PORT =3000  
+app.use(express.json());
 const chats = []
 
 // loging sever,req
@@ -34,8 +35,12 @@ app.get("/fpage",function(req,res) {
 app.post("/fpage",function(req,res){
     let data = req.body
     chats.push(data)
-    console.log(chats)
-
+    fetch("http://localhost:3000/fpage",{
+        method: "post",
+        body:{"ase":"ase"}
+    }).then(function(response){
+        return response.text();
+    });
 });
 
 

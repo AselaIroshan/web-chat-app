@@ -6,4 +6,14 @@ $("button").click(function (e) {
             console.log(err)
         }
     } );
+    let chat_history = $("<h1>").append(chat)
+    $(".chatbox").append(chat_history)
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/fpage",
+        success: function (response) {
+            console.log(response)
+        }
+    });
+    
 });
