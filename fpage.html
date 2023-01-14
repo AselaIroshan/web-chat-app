@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <title></title>
+            <meta name="description" content="">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="/css/f_page.css">
+            <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="text_body">
+            <div class="chatbox">
+            </div>
+                <form action="/fpage" method="post" >
+                        <input type="text" name="chat"><br><br>
+                        <button class="button-46" role="button">SEND</button>
+                </form>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/script/fpage.js" async defer></script>
+    </body>
+</html>
