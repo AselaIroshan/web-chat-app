@@ -1,19 +1,15 @@
 var socket = io();
 
-socket.emit('message', {text: 'Hello Server'});
-
-
-$("button").click(function (e) { 
+$("form").submit(function (e) { 
     e.preventDefault();
-    let chat = $("input").val();
+    var cht = $("input").val();
+    if (cht) {
+        socket.emit('chat message', cht);
+        cht = '';
+      }
     
-    $.post( "/fpage", { name:chat } );
-
 });
-
-$.get("/chat",function(data){
-    var cht = data;
-    let chat_history = $("<h1>").append(cht);
-    $(".chatbox").append(chat_history);
-
-});
+socket.on('chat message', function(msg) {
+    var txt = $("<h1>").append(msg);
+    $(".chatbox").append(txt);
+  });
