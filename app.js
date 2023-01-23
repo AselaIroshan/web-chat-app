@@ -7,8 +7,23 @@ const io = new Server(server);
 const path = require("path")
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser')
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10 
 
 mongoose.connect('mongodb://127.0.0.1:27017/userdb');
+
+const time_for = 1000 * 60 * 60 * 2 ;
+app.use(session({
+  secret: 'secrat_key',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/userdata' }),
+  cookie: { maxAge: time_for  }
+}));
+
 
 const usersSchema = new mongoose.Schema({
   email: String,
@@ -22,30 +37,40 @@ app.use(express.static(path.join(__dirname,"public")));
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
+
+  console,console.log(req.session);
+  if (req.session.secure){
+    res.sendFile(__dirname + '/fpage.html');
+  }
+  else{
+    res.sendFile(__dirname + '/index.html');
+  }
 });
 
 app.post('/',(req,res)=>{
+  
   var email = req.body.email
   var username = req.body.username
   var gender = req.body.gender
   var pass = req.body.pass
 
   if(username){
-    const user = new useers({
-      email:email,
-      username:username,
-      gender:gender,
-      password:pass
-    })
-    user.save(function(err){
-      if(err){
-        res.send('somthing err')
-      }
-      else{
-        res.sendFile(__dirname + '/fpage.html');
-      }
-    });
+    bcrypt.hash(pass, saltRounds, function(err, hash) {
+      const user = new useers({
+        email:email,
+        username:username,
+        gender:gender,
+        password:hash
+      })
+      user.save(function(err){
+        if(err){
+          res.send('somthing err')
+        }
+        else{
+          res.redirect('/')
+        }
+      });
+  });
   }
   else{
 
@@ -54,12 +79,15 @@ app.post('/',(req,res)=>{
         console.log(err);
       } 
       else {
-        if(useers.password === pass){
-          res.sendFile(__dirname + '/fpage.html');
-        }
-        else{
-          res.send('email or password could be wrong plz check for it ')
-        }
+        bcrypt.compare(pass, useers.password, function(err, result) {
+          if(result) {
+            req.session.secure = true
+            res.sendFile(__dirname + '/fpage.html');
+          }
+          else{
+            res.send('email or password could be wrong plz check for it ')
+          }
+});
       }
     });
     
